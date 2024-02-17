@@ -9,12 +9,13 @@ Windows Software Restriction Policies can help prevent execution of common livin
 - Right-click on the downloaded file, select "Properties" and click "Unblock"
 - Click "OK"
 - Unzip the file to your desired location
-- Following the .csv examples in the /hashes folder, add or update to include all hashes you would like in your Software Restriction Policy
+- Following the .csv examples in the /hashes folder, add .csv fiels or edit the existing to include all hashes you would like in your Software Restriction Policy
   - All fields are required, hashes are case insensitive
   - Ensure MD5 values are 32 hexadecimal characters in length
   - Ensure SHA256 values are 64 hexadecimal characters in length
 - In a PowerShell window, navigate to the directory where Create-SRPPolicy.ps1 is located
 - Run .\Create-SRPPolicy.ps1
+  - Note, the script will process ALL .csv files in the /hashes folder so make sure it contains only what you want in your custom SRP policy
 - Open Group Policy Management, create a new group policy object and edit this new policy
 - Create a Software Restriction Policy (Can be found under User Configuration/Windows Settings/Security Settings/Software Restriction Policies)
 - Exit the GPO editor
