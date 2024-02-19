@@ -32,5 +32,8 @@ Windows Software Restriction Policies can help prevent execution of common livin
   certutil -hashfile <path to file> SHA256
   dir /-C <path to file>
 ```
+### Where do I get the Unique GPO ID?
+- Open Group Policy Management, select the GPO in question, click on the "Details" tab and find the "Unique ID" entry.
+
 ### Disclaimer
 This tool generates a random identifier for each SRP entry.  There is an infinitesimally small chance of an identifier value created by this script overlapping an existing SRP identifier.
