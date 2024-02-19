@@ -8,7 +8,7 @@ TO DO:
 $hashPath = $PWD.Path + '\hashes'
 $polHeaderFile = $PWD.Path + '\Header.pol'
 $polEntryTemplate = $PWD.Path + '\EntryTemplate.pol'
-$outputFile = $PWD.Path + '\Policy.pol'
+$outputFile = $PWD.Path + '\Registry.pol'
 
 $polFile = Get-Content $polHeaderFile -Raw -Encoding Byte
 $polString = $polFile.ForEach('ToString', 'X2') -join ' '
@@ -102,9 +102,9 @@ foreach($hashFile in $hashesList){
     }
 }
 
-###### Write final string to Policy.pol
+###### Write final string to Registry.pol
 
 [byte[]] $policyByteArray = -split $polString -replace '^', '0x'
 Set-Content $outputFile -Encoding Byte -Value $policyByteArray
 
-###### /Write final string to Policy.pol
+###### /Write final string to Registry.pol
