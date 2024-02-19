@@ -16,7 +16,8 @@ Windows Software Restriction Policies can help prevent execution of common livin
 - Run .\Create-SRPPolicy.ps1
   - Note, the script will process ALL .csv files in the /hashes folder so make sure it contains only what you want in your custom SRP policy
 - Open Group Policy Management, create a new group policy object and edit this new policy
-- Create a Software Restriction Policy (Can be found under User Configuration/Windows Settings/Security Settings/Software Restriction Policies)
+- Create a Software Restriction Policy
+  - Can be found under User Configuration/Windows Settings/Security Settings/Software Restriction Policies
 - Exit the GPO editor
 - Copy the Windows SRP Policy Generator-generated Registry.pol file over your newly created group policy Registry.pol file
   - The Registry.pol file can be found in "C:\Windows\SYSVOL\sysvol\your.domain.name\Policies\{Unique GPO ID}\User" on your domain controller
