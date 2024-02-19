@@ -19,7 +19,7 @@ Windows Software Restriction Policies can help prevent execution of common livin
 - Create a Software Restriction Policy (Can be found under User Configuration/Windows Settings/Security Settings/Software Restriction Policies)
 - Exit the GPO editor
 - Copy the Windows SRP Policy Generator-generated Registry.pol file over your newly created group policy Registry.pol file
-  - The Registry.pol file can be found in "C:\Windows\SYSVOL\sysvol\<domain.name>\Policies\{<Unique GPO ID>}\User" on your domain controller
+  - The Registry.pol file can be found in "C:\Windows\SYSVOL\sysvol\your.domain.name\Policies\{Unique GPO ID}\User" on your domain controller
   - Ensure the new Registry.pol file does not have the mark of the web (_BEFORE_ copying, right-click, Properties, uncheck "Unblock")
 - Open Group Policy Management and browse to the GPO.  If the Registry.pol file permissions are incorrect, you will be prompted to have them corrected automatically
 - Open the GPO in the GPO editor, navigate to the Software Restriction Policy and ensure it loads with no errors
