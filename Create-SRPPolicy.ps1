@@ -18,6 +18,7 @@ $placeholderUID = '31 00 31 00 31 00 31 00 31 00 31 00 31 00 31 00 2D 00 31 00 3
 $placeholderMD5 = 'B3 AD 53 64 CF 04 B6 AB 05 61 6D D4 83 AA F6 18'
 $placeholderSHA256 = '73 75 AD ED B8 2F D6 2C EF C6 B6 FD 20 A7 04 A1 64 E0 56 02 2F 3B 8C 2E 1B 94 F3 A9 B8 36 14 78'
 $placeholderSize = '3B 00 00 C4 06 00'
+$placeholderDTS = '2B 7D 8F 77 E5 5E DA 01'
 
 $polEntry = Get-Content $polEntryTemplate -Raw -Encoding Byte
 $entryTemplate = $polEntry.ForEach('ToString', 'X2') -join ' '
