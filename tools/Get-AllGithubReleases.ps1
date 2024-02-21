@@ -93,7 +93,7 @@ foreach($URL in $FetchList){
     $i++
 }
 $splitExe = $exe.Split(".")
-$csvOutput = "$PWD.Path\hashes\$splitExe[0].csv"
+$csvOutput = $PWD.Path + '\' + $splitExe[0] + '.csv'
 
 # Get the list of all maching files in our working directory (recursively), piping to a formatted table and sending that table to a ready-to-use CSV file.
 Get-ChildItem $WorkingDir -Recurse -filter $exe | Select-Object -Property @{Name="MD5";expression={(Get-FileHash $_.FullName -Algorithm MD5).hash}},@{Name="SHA256";expression={(Get-FileHash $_.FullName).hash}},@{Name="SIZE";expression={$_.Length}} | export-csv $csvOutput
