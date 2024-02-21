@@ -1,3 +1,16 @@
+<#
+Get-AllGithubReleases.ps1
+Fetches every available release version of matching Windows .ZIP assets for the specified repository, extracts the specified executable,
+and automatically generates a .csv hash file for use with the Windows-SRP-Policy-Generator
+
+Usage:
+  Get-AllGitHubReleases -owner <GitHub repo owner> -repo <GitHub repo name> -exe <executable to process>
+
+Examples:
+  PowerShell Core repository at https://github.com/PowerShell/PowerShell:
+  Execute Get-AllGitHubReleases -owner PowerShell -repo PowerShell -exe pwsh.exe
+
+#>
 param (
     [string]$APIURL = "https://api.github.com",
     [string]$owner = $( Read-Host "Enter repo owner.  Example: Microsoft" ),
