@@ -4,7 +4,7 @@ Generates a custom Registry.pol file for hash-based software restriction group p
 Windows Software Restriction Policies can help prevent execution of common living off the land (LOL) tools, but the Group Policy editor is severely limited for hash-based restrictions.  To add a hash-based rule, you need to have a copy of the file in question.  For executables like Powershell.exe, this would require somehow obtaining a copy of every version published to ensure complete coverage.  
 #### This tool generates a custom Registry.pol file from a supplied hash list that can then be copied to your group policy object folder, bypassing this Group Policy editor limitation.
 > [!IMPORTANT]
-> Common guidance suggests that path-based restrictions will work, but an attacker can simply copy the contents of the restricted folder to a new location!  Hash-based restrictions provide the highest assurance that your policy will function as expected.
+> Common guidance suggests that path-based restrictions will work, but an attacker can simply copy the contents of the restricted folder to a new location.  Hash-based restrictions provide the highest assurance that your policy will function as expected.
 ### Usage
 - Download the repository code ZIP
 - Right-click on the downloaded file, select "Properties" and click "Unblock"
