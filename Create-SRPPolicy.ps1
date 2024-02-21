@@ -2,7 +2,6 @@
 Feb 17 2024
 TO DO:
     Update FriendlyName name so every entry is not showing "PowerShell.exe (..."
-    Update LastModified date?  Doubt this is important.
 #>
 
 $hashPath = $PWD.Path + '\hashes'
@@ -22,6 +21,12 @@ $placeholderDTS = '2B 7D 8F 77 E5 5E DA 01'
 
 $polEntry = Get-Content $polEntryTemplate -Raw -Encoding Byte
 $entryTemplate = $polEntry.ForEach('ToString', 'X2') -join ' '
+
+$windowsEpoch = (Get-Date).ToFileTime()
+$hexDTS = '0x' + $windowsEpoch.ToString("X16")
+$byteDTS = [byte[]] ($hexDTS -replace '^0x' -split '(..)' -ne '' -replace '^', '0x')
+[Array]::Reverse($byteDTS)
+$currentDTS = [System.BitConverter]::ToString($byteDTS) -replace '-',' '
 
 # Get the list of csv files in the \hashes subdirectory
 $hashesList = Get-ChildItem -Path $hashPath -Filter "*.csv" | select Name
@@ -92,6 +97,7 @@ foreach($hashFile in $hashesList){
             $entrySize = '3B 00 ' + $entrySize
             $entryString = $entryTemplate
             $entryString = $entryString.Replace($placeholderUID,$entryUID) # Set UID for this SRP entry
+            $entryString = $entryString.Replace($placeholderDTS,$currentDTS) # Set LastModified for this SRP entry
             $entryString = $entryString.Replace($placeholderMD5,$entryMD5) # Set MD5 for this SRP entry
             $entryString = $entryString.Replace($placeholderSHA256,$entrySHA256) # Set SHA256 for this SRP entry
             $entryString = $entryString.Replace($placeholderSize,$entrySize) # Set Size for this SRP entry
