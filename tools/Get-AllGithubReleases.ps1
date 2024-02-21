@@ -31,7 +31,7 @@ if (-not(Test-Path -Path $WorkingDir -PathType Container)){$null = New-Item -Pat
 # Force TLS 1.2
 [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12
 
-# Get the list of releases, 100 items at a time (max API limit)
+# Get the list of releases, 100 items at a time (API limit)
 $Response = Invoke-WebRequest -Method GET -Uri $ReleasesURL -Headers @{ 'Accept' = 'application/vnd.github.json'; 'X-Github-Api-Version' = '2022-11-28'} -UseBasicParsing
 
 if($Response.Statuscode -ne 200){exit -1} # Quit if we get an invalid result code from API
@@ -41,7 +41,7 @@ while($Response.Headers.link.Contains('rel="next"')){ # Walk through every page 
     $i++
     foreach($record in $ReleaseList){
         foreach($asset in $record.assets){
-            if($asset.browser_download_url.Contains('win-x64.zip') -or $asset.browser_download_url.Contains('win-x86.zip')){ # Specific to test repo.  Considering ways to make this more flexible
+            if($asset.browser_download_url.Contains('win-x64.zip') -or $asset.browser_download_url.Contains('win-x86.zip')){ # Specific to test repo.  Consider ways to make this more flexible..............
                 $FetchList.Add($asset.browser_download_url) # Add the maching download URL to our list of files we need to download
                 }
             }
