@@ -34,6 +34,10 @@ Windows Software Restriction Policies can help prevent execution of common livin
   certutil -hashfile <path to file> SHA256
   dir /-C <path to file>
 ```
+- In a PowerShell command prompt, you can use the following command to output the result directly to a CSV file
+```
+  Get-ChildItem <path to file> | Select-Object -Property @{Name="MD5";expression={(Get-FileHash $_.FullName -Algorithm MD5).hash}},@{Name="SHA256";expression={(Get-FileHash $_.FullName).hash}},@{Name="SIZE";expression={$_.Length}} | export-csv <path to csv file>
+```
 ### Where do I get the Unique GPO ID?
 - Open Group Policy Management, select the GPO in question, click on the "Details" tab and find the "Unique ID" entry.
 
