@@ -1,7 +1,5 @@
 ﻿<#
 Feb 21 2024
-TO DO:
-    Update FriendlyName name so every entry is not showing "PowerShell.exe (..."
 #>
 
 $hashPath = $PWD.Path + '\hashes'
@@ -13,6 +11,7 @@ $polFile = Get-Content $polHeaderFile -Raw -Encoding Byte
 $polString = $polFile.ForEach('ToString', 'X2') -join ' '
 $polString += ' '
 
+$placeholderFriendlyName = '32 00 32 00 32 00 32 00 32 00 32 00 32 00 32 00 32 00 32 00 32 00 32 00 32 00 32 00 32 00 32 00 32 00 32 00 32 00 32 00 32 00 32 00 32 00 32 00 32 00 32 00 32 00 32 00 32 00 32 00 32 00 32 00 32 00 32 00 32 00 32 00 32 00 32 00 32 00 32 00 32 00 32 00 32 00 32 00 32 00 32 00 32 00 32 00 32 00 32 00 32 00 32 00 32 00 32 00 32 00 32 00 32 00 32 00 32 00 32 00 32 00 32 00 32 00 32 00 32 00 32 00 32 00 32 00 32 00 32 00 32 00 32 00 32 00 32 00 32 00 32 00 32 00 32 00 32 00 32 00 32 00 32 00 32 00 32 00 32 00 32 00 32 00 32 00 32 00 32 00 32 00 32 00 32 00 32 00 32 00 32 00 32 00 32 00 32 00 32 00 32 00 32 00 32 00 32 00 32 00 32 00 32 00 32 00 32 00 32 00 32 00 32 00 32 00 32 00 32 00 32 00 32 00 32 00 32 00 32 00 32 00 32 00 32 00 32 00'
 $placeholderUID = '31 00 31 00 31 00 31 00 31 00 31 00 31 00 31 00 2D 00 31 00 31 00 31 00 31 00 2D 00 31 00 31 00 31 00 31 00 2D 00 31 00 31 00 31 00 31 00 2D 00 31 00 31 00 31 00 31 00 31 00 31 00 31 00 31 00 31 00 31 00 31 00 31 00'
 $placeholderMD5 = 'B3 AD 53 64 CF 04 B6 AB 05 61 6D D4 83 AA F6 18'
 $placeholderSHA256 = '73 75 AD ED B8 2F D6 2C EF C6 B6 FD 20 A7 04 A1 64 E0 56 02 2F 3B 8C 2E 1B 94 F3 A9 B8 36 14 78'
@@ -27,6 +26,7 @@ $hexDTS = '0x' + $windowsEpoch.ToString("X16")
 $byteDTS = [byte[]] ($hexDTS -replace '^0x' -split '(..)' -ne '' -replace '^', '0x')
 [Array]::Reverse($byteDTS)
 $currentDTS = [System.BitConverter]::ToString($byteDTS) -replace '-',' '
+$currentDTS = $currentDTS.Trim(' ')
 
 # Get the list of csv files in the \hashes subdirectory
 $hashesList = Get-ChildItem -Path $hashPath -Filter "*.csv" | select Name
@@ -34,11 +34,35 @@ $hashesList = Get-ChildItem -Path $hashPath -Filter "*.csv" | select Name
 # Process each of the .csv files
 foreach($hashFile in $hashesList){
     $fullHashPath = $hashPath + '\' + $hashFile.Name
-    $hashFile = Import-Csv $fullHashPath
+    $hashFileData = Import-Csv $fullHashPath
     $fullHashPath
 
+    ###### Create per-file FriendlyName entry
+    $friendlyName = ''
+    $friendlyNameString = $hashFile.Name + "`r`nCreated by SRP Generator`r`nhttps://github.com/Xorlent/Windows-SRP-Policy-Generator"
+
+    $friendlyNameArray = $friendlyNameString.ToCharArray()
+    $index = 0
+    Foreach ($letter in $friendlyNameArray){
+        if($letter -eq 13 -or $letter -eq 10){
+            $friendlyName = $friendlyName + "0" + [System.String]::Format("{0:X}", [System.Convert]::ToUInt32($letter)) + " 00 "
+            }
+        else{
+            $friendlyName = $friendlyName + [System.String]::Format("{0:X}", [System.Convert]::ToUInt32($letter)) + " 00 "
+        }
+        $index++
+    }
+
+    while($index -lt 124){ # Pad the string so it is exactly 248 bytes
+        $friendlyName = $friendlyName + "00 00 "
+        $index++
+    }
+
+    $friendlyName = $friendlyName.Trim(' ')
+    ###### /Create per-file FriendlyName entry
+
     #Process each hash entry within the current .csv file
-    foreach($hash in $hashFile){
+    foreach($hash in $hashFileData){
 
         ###### Convert file size in bytes to hex string
         $entryLength = [convert]::ToString($hash.SIZE,16)
@@ -97,6 +121,7 @@ foreach($hashFile in $hashesList){
             $entrySize = '3B 00 ' + $entrySize
             $entryString = $entryTemplate
             $entryString = $entryString.Replace($placeholderUID,$entryUID) # Set UID for this SRP entry
+            $entryString = $entryString.Replace($placeholderFriendlyName,$friendlyName) # Set FriendlyName for this SRP entry
             $entryString = $entryString.Replace($placeholderDTS,$currentDTS) # Set LastModified for this SRP entry
             $entryString = $entryString.Replace($placeholderMD5,$entryMD5) # Set MD5 for this SRP entry
             $entryString = $entryString.Replace($placeholderSHA256,$entrySHA256) # Set SHA256 for this SRP entry
