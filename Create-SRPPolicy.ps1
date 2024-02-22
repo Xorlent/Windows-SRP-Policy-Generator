@@ -40,7 +40,7 @@ foreach($hashFile in $hashesList){
     ###### Create per-file FriendlyName entry
     $friendlyName = ''
     $friendlyNameString = $hashFile.Name + "`r`nCreated by SRP Generator`r`nhttps://github.com/Xorlent/Windows-SRP-Policy-Generator"
-
+    if($friendlyNameString.Length -gt 120){$friendlyNameString = $friendlyNameString.Substring(0,119)}
     $friendlyNameArray = $friendlyNameString.ToCharArray()
     $index = 0
     Foreach ($letter in $friendlyNameArray){
