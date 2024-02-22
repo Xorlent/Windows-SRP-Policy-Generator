@@ -10,7 +10,7 @@ Windows Software Restriction Policies can help prevent execution of common livin
 - Right-click on the downloaded file, select "Properties" and click "Unblock"
 - Click "OK"
 - Unzip the file to your desired location
-- Following the .csv examples in the /hashes folder, add .csv fiels or edit the existing to include all hashes you would like in your Software Restriction Policy
+- Following the .csv examples in the /hashes folder, add .csv files or edit the existing to include all hashes you would like in your Software Restriction Policy
   - All fields are required, hashes are case insensitive
   - Ensure MD5 values are 32 hexadecimal characters in length
   - Ensure SHA256 values are 64 hexadecimal characters in length
