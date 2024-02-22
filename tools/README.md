@@ -7,5 +7,5 @@
   ```
   The script will prompt for input if any parameters are missing.
 - Limitations:
-  - The script will only find and extract executables from release assets ending in, "x86.zip", "x64.zip", "amd64.zip"
+  - The script will only find and extract your target executable from release assets ending in, "x86.zip", "x64.zip", "amd64.zip"
   - If the repo you are targeting has different naming convention for the Windows ZIP releases, edit lines 44 and 58 of the script.
