@@ -41,7 +41,7 @@ while($Response.Headers.link.Contains('rel="next"')){ # Walk through every page 
     $i++
     foreach($record in $ReleaseList){
         foreach($asset in $record.assets){
-            if($asset.browser_download_url.Contains('win-x64.zip') -or $asset.browser_download_url.Contains('win-x86.zip')){ # Specific to test repo.  Consider ways to make this more flexible..............
+            if($asset.browser_download_url.Contains('x64.zip') -or $asset.browser_download_url.Contains('x86.zip') -or $asset.browser_download_url.Contains('amd64.zip')){
                 $FetchList.Add($asset.browser_download_url) # Add the maching download URL to our list of files we need to download
                 }
             }
@@ -55,7 +55,7 @@ $ReleaseList = ConvertFrom-Json $response.Content
 
 foreach($record in $ReleaseList){
     foreach($asset in $record.assets){
-        if($asset.browser_download_url.Contains('win-x64.zip') -or $asset.browser_download_url.Contains('win-x86.zip')){
+        if($asset.browser_download_url.Contains('x64.zip') -or $asset.browser_download_url.Contains('x86.zip') -or $asset.browser_download_url.Contains('amd64.zip')){
             $FetchList.Add($asset.browser_download_url) # Add the maching download URL to our list of files we need to download
             }
         }
