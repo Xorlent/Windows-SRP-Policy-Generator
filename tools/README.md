@@ -1,5 +1,5 @@
-### Hash-generating tools
-#### Get-AllGithubReleases.ps1
+## Hash-generating tools
+### Get-AllGithubReleases.ps1
 - This tool allows the user to specify a GitHub repo and target executable file from which a hash csv is generated from all available releases in the repo.  
 - Usage:
   ```
@@ -9,7 +9,7 @@
 - Limitations:
   - The script will only find and extract your target executable from release assets ending in, "x86.zip", "x64.zip", "amd64.zip"
   - If the repo you are targeting has different naming convention for the Windows ZIP releases, edit lines 44 and 58 of the script.
-#### Get-AllDownloadWebLinks.ps1
+### Get-AllDownloadWebLinks.ps1
 - This tool allows the user to specify a web download page and target executable file from which a hash csv is generated from all available releases in the repo.  
 - Usage:
   ```
