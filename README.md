@@ -41,5 +41,9 @@ Windows Software Restriction Policies can help prevent execution of common livin
 ### Where do I get the Unique GPO ID?
 - Open Group Policy Management, select the GPO in question, click on the "Details" tab and find the "Unique ID" entry.
 
+### The policy is not working/applying
+1. Ensure the group policy is applying as expected to the user/computer as scoped
+2. Verify you are not also applying AppLocker policies to the machine, as this results in the SRP entries being completely ignored [Microsoft Doc](https://learn.microsoft.com/en-us/previous-versions/windows/it-pro/windows-server-2012-R2-and-2012/hh994614(v=ws.11))
+
 ### Disclaimer
 This tool generates a random identifier for each SRP entry.  There is an infinitesimally small chance of an identifier value created by this script overlapping an existing SRP identifier.
