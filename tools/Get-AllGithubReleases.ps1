@@ -8,7 +8,7 @@ Usage:
 
 Examples:
   PowerShell Core repository at https://github.com/PowerShell/PowerShell:
-  Execute Get-AllGitHubReleases -owner PowerShell -repo PowerShell -exe pwsh.exe
+  Get-AllGitHubReleases -owner PowerShell -repo PowerShell -exe pwsh.exe
 
 #>
 param (
