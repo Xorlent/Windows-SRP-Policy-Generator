@@ -7,7 +7,7 @@ Usage:
   Get-AllDownloadWebLinks -download <Download URL> -x32 <32-bit ZIP file search string> -x64 <64-bit ZIP file search string> -exe <executable to process>
 
 Examples:
-  PowerShell Core repository at https://github.com/PowerShell/PowerShell:
+  Python download site at https://www.python.org/downloads/windows:
   Get-AllDownloadWebLinks.ps1 -download https://www.python.org/downloads/windows/ -x32 embed-win32.zip -x64 embed-amd64.zip -exe python.exe
 
 #>
