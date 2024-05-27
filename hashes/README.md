@@ -11,3 +11,7 @@
   certutil -hashfile <path to file> SHA256
   dir /-C <path to file>
 ```
+- In a PowerShell command prompt, you can use the following command to output the result directly to a CSV file
+```
+  Get-ChildItem <path to file> | Select-Object -Property @{Name="MD5";expression={(Get-FileHash $_.FullName -Algorithm MD5).hash}},@{Name="SHA256";expression={(Get-FileHash $_.FullName).hash}},@{Name="SIZE";expression={$_.Length}} | export-csv <path to csv file>
+```
